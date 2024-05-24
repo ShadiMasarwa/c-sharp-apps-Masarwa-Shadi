@@ -8,7 +8,7 @@ namespace c_sharp_apps_Masarwa_Shadi
 {
     public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
         }
     }
