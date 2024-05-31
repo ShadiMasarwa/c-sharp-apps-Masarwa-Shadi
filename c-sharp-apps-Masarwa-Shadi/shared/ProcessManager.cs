@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using c_sharp_apps_Masarwa_Shadi.TransportationApp;
 using c_sharp_apps_Masarwa_Shadi.SportApp;
 using c_sharp_apps_Masarwa_Shadi.DraftApp;
 using c_sharp_apps_Masarwa_Shadi.BankApp;
+using c_sharp_apps_Masarwa_Shadi.StockDemo;
 
 namespace c_sharp_apps_Masarwa_Shadi.shared
 {
-    internal class ProcessManager
+    public class ProcessManager
     {
         public static void RunMainProcess()
         {
@@ -21,7 +19,8 @@ namespace c_sharp_apps_Masarwa_Shadi.shared
             Console.WriteLine("2. Sport App");
             Console.WriteLine("3. Transportation App");
             Console.WriteLine("4. Draft App");
-            Console.WriteLine("5. Exit");
+            Console.WriteLine("5. Stock App");
+            Console.WriteLine("0. Exit");
             Console.WriteLine("=====================");
             while (!finish)
             {
@@ -42,6 +41,10 @@ namespace c_sharp_apps_Masarwa_Shadi.shared
                         DraftAppMain.MainEntry();
                         break;
                     case 5:
+                        ExchangeDemo exchangeDemo = new ExchangeDemo();
+                        exchangeDemo.MainEntry();
+                        break;
+                    case 0:
                         finish = true;
                         break;
 
