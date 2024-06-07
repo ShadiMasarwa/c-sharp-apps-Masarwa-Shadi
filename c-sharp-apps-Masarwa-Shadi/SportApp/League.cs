@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace c_sharp_apps_Masarwa_Shadi.SportApp
 {
-    class League
+    public class League
     {
     }
 }
