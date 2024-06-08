@@ -11,12 +11,11 @@ namespace c_sharp_apps_Masarwa_Shadi.SportApp
         public static void Test1()
         {
 
-            Console.WriteLine("Test 1 - champions league mock");
             Season[] groups = CreateChampionsLeagueMock();
-
+            Console.Clear();
             for (int i = 0; i < groups.Length; i++)
             {
-                groups[i].DisplayTable();
+                groups[i].DisplayTable(i+1);
             }
 
         }
@@ -40,7 +39,7 @@ namespace c_sharp_apps_Masarwa_Shadi.SportApp
             Season groupB = new Season(2024, "soccer", "Champoins - Group B", teams2);
             groups[1] = groupB; 
 
-            Team realMadrid = new Team(" Real Madrid", "madrid");
+            Team realMadrid = new Team("Real Madrid", "madrid");
             Team napoli = new Team("Napoli" , "Napoli");
             Team braja = new Team("Braja", "Braja");
             Team unionBerlin = new Team("Union Berlin", "Berlin");

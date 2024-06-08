@@ -25,13 +25,19 @@ namespace c_sharp_apps_Masarwa_Shadi.SportApp
             this.teamsInSeason = teams;
         }
 
-        public void DisplayTable()
+        public void DisplayTable(int num)
         {
-            Console.WriteLine("Table of teams and points");
+            Console.WriteLine(league);
+            Console.WriteLine(" -----------------------------------------");
+            Console.WriteLine(String.Format("|{0,-30}|{1,-10}|", "Team", "Points"));
+            Console.WriteLine(" -----------------------------------------");
             foreach (Team t in teamsInSeason)
             {
-                Console.WriteLine("Name of team: " +  t.getName() +  " Points: " + t.getPoints());
+                Console.WriteLine(String.Format("|{0,-30}|{1,-10}|", t.getName(), t.getPoints()));
+                //Console.WriteLine(t.getName() +  "\t Points: " + t.getPoints());
             }
+            Console.WriteLine(" -----------------------------------------");
+            Console.WriteLine();
         }
 
     }
