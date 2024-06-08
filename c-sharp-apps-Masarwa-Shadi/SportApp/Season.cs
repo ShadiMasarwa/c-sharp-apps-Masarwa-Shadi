@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,19 +26,28 @@ namespace c_sharp_apps_Masarwa_Shadi.SportApp
             this.teamsInSeason = teams;
         }
 
-        public void DisplayTable(int num)
+        public void DisplayTable()
         {
             Console.WriteLine(league);
-            Console.WriteLine(" -----------------------------------------");
-            Console.WriteLine(String.Format("|{0,-30}|{1,-10}|", "Team", "Points"));
-            Console.WriteLine(" -----------------------------------------");
+            Console.WriteLine(" ----------------------------------------------------------");
+            Console.WriteLine(String.Format("|{0,-20} | {1,-6}| {2, -6} | {3,-6} | {4, -8} |", "Team", "Wins", "Loses", "Draws", "Points"));
+            Console.WriteLine(" ----------------------------------------------------------");
             foreach (Team t in teamsInSeason)
             {
-                Console.WriteLine(String.Format("|{0,-30}|{1,-10}|", t.getName(), t.getPoints()));
-                //Console.WriteLine(t.getName() +  "\t Points: " + t.getPoints());
+                Console.WriteLine(String.Format("|{0,-20} | {1,-6}| {2, -6} | {3,-6} | {4,-8} |", t.getName(), t.Wins,t.Loses, t.Draw, t.Points));
             }
-            Console.WriteLine(" -----------------------------------------");
+            Console.WriteLine(" ----------------------------------------------------------");
             Console.WriteLine();
+        }
+
+        public string getLeague()
+        {
+            return league;
+        }
+
+        public Team[] getTeams()
+        {
+            return teamsInSeason;
         }
 
     }
