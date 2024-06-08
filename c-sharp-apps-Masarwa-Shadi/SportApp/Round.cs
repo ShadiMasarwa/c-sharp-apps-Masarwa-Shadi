@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace c_sharp_apps_Masarwa_Shadi.SportApp
 {
-    class Round
+    public class Round
     {
+        private Game[] games;
     }
 }

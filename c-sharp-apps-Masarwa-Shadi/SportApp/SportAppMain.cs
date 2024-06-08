@@ -10,7 +10,8 @@ namespace c_sharp_apps_Masarwa_Shadi.SportApp
     {
         public static void MainEntry()
         {
-            Console.WriteLine("SportApp");
+            Console.WriteLine("Test 1 - Champions League Mock");
+            TestSportApp.Test1();
         }
     }
 }

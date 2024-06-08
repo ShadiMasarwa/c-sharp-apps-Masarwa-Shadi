@@ -54,6 +54,7 @@
     <Compile Include="SportApp\Season.cs" />
     <Compile Include="SportApp\SportAppMain.cs" />
     <Compile Include="SportApp\Team.cs" />
+    <Compile Include="SportApp\TestSportApp.cs" />
     <Compile Include="StockDemo\ExchangeDemo.cs" />
     <Compile Include="StockDemo\Stock.cs" />
     <Compile Include="TransportationApp\TransportationAppMain.cs" />
