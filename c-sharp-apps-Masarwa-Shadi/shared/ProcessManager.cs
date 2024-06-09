@@ -13,19 +13,24 @@ namespace c_sharp_apps_Masarwa_Shadi.shared
         public static void RunMainProcess()
         {
             bool finish = false;
-            Console.WriteLine("App Menu");
-            Console.WriteLine("========");
-            Console.WriteLine("1. Bank App");
-            Console.WriteLine("2. Sport App");
-            Console.WriteLine("3. Transportation App");
-            Console.WriteLine("4. Draft App");
-            Console.WriteLine("5. Stock App");
-            Console.WriteLine("0. Exit");
-            Console.WriteLine("=====================");
+
             while (!finish)
             {
+                Screen.Clean();
+
+                Console.WriteLine("App Menu");
+                Console.WriteLine("========");
+                Console.WriteLine("1. Bank App");
+                Console.WriteLine("2. Sport App");
+                Console.WriteLine("3. Transportation App");
+                Console.WriteLine("4. Draft App");
+                Console.WriteLine("5. Stock App");
+                Console.WriteLine("0. Exit");
+                Console.WriteLine("=====================");
                 Console.Write("Enter Choice: ");
-                int choice = int.Parse(Console.ReadLine());
+                char ch = Console.ReadKey().KeyChar;
+                Console.WriteLine();
+                int choice = ch - 48;
                 switch (choice)
                 {
                     case 1:

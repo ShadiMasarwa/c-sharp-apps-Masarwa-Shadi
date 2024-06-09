@@ -51,6 +51,7 @@
     <Compile Include="SportApp\Game.cs" />
     <Compile Include="SportApp\League.cs" />
     <Compile Include="SportApp\Round.cs" />
+    <Compile Include="SportApp\Screen.cs" />
     <Compile Include="SportApp\Season.cs" />
     <Compile Include="SportApp\SportAppMain.cs" />
     <Compile Include="SportApp\Team.cs" />
