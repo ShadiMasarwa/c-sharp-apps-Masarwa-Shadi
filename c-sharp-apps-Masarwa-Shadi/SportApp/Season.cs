@@ -40,12 +40,12 @@ namespace c_sharp_apps_Masarwa_Shadi.SportApp
             Console.WriteLine();
         }
 
-        public string getLeague()
+        public string GetLeague()
         {
             return league;
         }
 
-        public Team[] getTeams()
+        public Team[] GetTeams()
         {
             return teamsInSeason;
         }

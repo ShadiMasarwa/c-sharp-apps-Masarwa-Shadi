@@ -14,8 +14,7 @@ namespace c_sharp_apps_Masarwa_Shadi.SportApp
     {
         public static void PrintGroupsDetails(Season[] groups)
         {
-            Console.Clear();
-            Console.WriteLine("\x1b[3J");
+            Screen.Clean();
 
             for (int i = 0; i < groups.Length; i++)
             {
@@ -23,8 +22,7 @@ namespace c_sharp_apps_Masarwa_Shadi.SportApp
             }
             Console.Write("Press any key to continue...");
             Console.ReadKey();
-            Console.Clear();
-            Console.WriteLine("\x1b[3J");
+            Screen.Clean();
 
 
         }

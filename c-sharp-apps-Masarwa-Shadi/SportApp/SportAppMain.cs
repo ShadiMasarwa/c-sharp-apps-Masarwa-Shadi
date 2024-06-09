@@ -14,11 +14,10 @@ namespace c_sharp_apps_Masarwa_Shadi.SportApp
             Season[] groups = TestSportApp.CreateChampionsLeagueMock();
 
             bool finish = false;
-            
+
             while (!finish)
             {
-                Console.Clear();
-                Console.WriteLine("\x1b[3J");
+                Screen.Clean();
 
                 Console.WriteLine("Sport App Menu");
                 Console.WriteLine("=====================");
@@ -27,7 +26,9 @@ namespace c_sharp_apps_Masarwa_Shadi.SportApp
                 Console.WriteLine("0. Exit");
                 Console.WriteLine("=====================");
                 Console.Write("Enter Choice: ");
-                int choice = int.Parse(Console.ReadLine());
+                char ch = Console.ReadKey().KeyChar;
+                Console.WriteLine();
+                int choice = ch - 48;
                 Console.WriteLine();
                 switch (choice)
                 {
@@ -47,34 +48,78 @@ namespace c_sharp_apps_Masarwa_Shadi.SportApp
         }
         private static void PlayGame(Season[] groups)
         {
-            int groupIndex, firstTeam, secondTeam;
-            Console.Clear();
-            Console.WriteLine("Choose League:");
-            for (int i=0; i<groups.Length; i++)
+            int groupIndex = 0, firstTeam = 0, secondTeam = 0, i;
+            bool correctLeague = false;
+            while (!correctLeague)
             {
-                Console.WriteLine(i+1 + ". " + groups[i].getLeague());
-            }
-            Console.WriteLine("0. Go Back");
-            Console.WriteLine();
-            Console.Write("Enter choice: ");
-            groupIndex = int.Parse(Console.ReadLine()) - 1;
-            if (groupIndex < 0) return;
+                Screen.Clean();
 
-            Console.Clear();
-            Console.WriteLine();
-            Console.WriteLine("Competition Between:");
-            for (int i=0; i < groups[groupIndex].getTeams().Length; i++)
-            {
-                Console.WriteLine(i + 1 + ". " + groups[groupIndex].getTeams()[i].getName());
+                Console.WriteLine("Choose League:");
+                Console.WriteLine("=============================");
+                for (i = 0; i < groups.Length; i++)
+                {
+                    Console.WriteLine(i + 1 + ". " + groups[i].GetLeague());
+                }
+                Console.WriteLine();
+                Console.WriteLine("0. Go Back");
+                Console.WriteLine("=============================");
+
+                Console.WriteLine();
+                Console.Write("Enter choice: ");
+                char ch = Console.ReadKey().KeyChar;
+                int choice = ch - 48;
+                if (choice == 0) return;
+                if (choice > 0 && choice <= i)
+                {
+                    groupIndex = choice - 1;
+                    correctLeague = true;
+                }
+
             }
-            Console.WriteLine("0. Go Back");
+
+
+            Screen.Clean();
+
+            Console.WriteLine("Competition Between:");
+            Console.WriteLine("=============================");
+            for (i = 0; i < groups[groupIndex].GetTeams().Length; i++)
+            {
+                Console.WriteLine(i + 1 + ". " + groups[groupIndex].GetTeams()[i].getName());
+            }
             Console.WriteLine();
-            Console.Write("Choose First team: ");
-            firstTeam = int.Parse(Console.ReadLine()) - 1;
-            if (firstTeam < 0) return;
-            Console.Write("Choose Second team: ");
-            secondTeam = int.Parse(Console.ReadLine()) - 1;
-            if (secondTeam < 0) return;
+            Console.WriteLine("0. Go Back");
+            Console.WriteLine("=============================");
+            Console.WriteLine();
+            bool correctTeamNumber = false;
+            while (!correctTeamNumber)
+            {
+                Console.Write("Choose First team: ");
+                char ch = Console.ReadKey().KeyChar;
+                Console.WriteLine();
+                int choice = ch - 48;
+                if (choice == 0) return;
+                if (choice > 0 && choice <= i)
+                {
+                    firstTeam = choice - 1;
+                    correctTeamNumber = true;
+                }
+
+            }
+            correctTeamNumber = false;
+            while (!correctTeamNumber)
+            {
+                Console.Write("Choose Second team: ");
+                char ch = Console.ReadKey().KeyChar;
+                Console.WriteLine();
+                int choice = ch - 48;
+                if (choice == 0) return;
+                if (choice > 0 && choice <= i && choice != firstTeam + 1)
+                {
+                    secondTeam = choice - 1;
+                    correctTeamNumber = true;
+                }
+
+            }
 
             Play(groups[groupIndex], firstTeam, secondTeam);
 
@@ -84,22 +129,26 @@ namespace c_sharp_apps_Masarwa_Shadi.SportApp
         private static void Play(Season group, int firstTeam, int secondTeam)
         {
             bool finish = false;
-            Console.Clear();
-            Game game = new Game(group.getTeams()[firstTeam], group.getTeams()[secondTeam]);
+            Screen.Clean();
+            Game game = new Game(group.GetTeams()[firstTeam], group.GetTeams()[secondTeam]);
             string team1Name = game.Team1.getName();
             string team2Name = game.Team2.getName();
-            
+
             while (!finish)
             {
-                Console.Clear();
-                Console.WriteLine("{0} VS. {1} ({2}-{3})", team1Name, team2Name, game.Team1Goals, game.Team2Goals);
-                Console.WriteLine("-----------------------------");
-                Console.WriteLine("1.Goal for {0}!!", team1Name);
-                Console.WriteLine("2.Goal for {0}!!", team2Name);
+                Screen.Clean();
+
+                Console.WriteLine("{0} VS. {1} ({2} - {3})", team1Name, team2Name, game.Team1Goals, game.Team2Goals);
+                Console.WriteLine("=============================");
+                Console.WriteLine("1. Goal for {0}!!", team1Name);
+                Console.WriteLine("2. Goal for {0}!!", team2Name);
+                Console.WriteLine();
                 Console.WriteLine("0. Game End");
-                Console.WriteLine("-----------------------------");
+                Console.WriteLine("=============================");
                 Console.Write("Enter Choice: ");
-                int choice = int.Parse(Console.ReadLine());
+                char ch = Console.ReadKey().KeyChar;
+                Console.WriteLine();
+                int choice = ch - 48;
                 switch (choice)
                 {
                     case 1:

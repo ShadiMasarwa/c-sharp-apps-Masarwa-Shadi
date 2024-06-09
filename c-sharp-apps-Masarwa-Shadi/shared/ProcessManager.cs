@@ -13,11 +13,10 @@ namespace c_sharp_apps_Masarwa_Shadi.shared
         public static void RunMainProcess()
         {
             bool finish = false;
-            
+
             while (!finish)
             {
-                Console.Clear();
-                Console.WriteLine("\x1b[3J");
+                Screen.Clean();
 
                 Console.WriteLine("App Menu");
                 Console.WriteLine("========");
@@ -29,7 +28,9 @@ namespace c_sharp_apps_Masarwa_Shadi.shared
                 Console.WriteLine("0. Exit");
                 Console.WriteLine("=====================");
                 Console.Write("Enter Choice: ");
-                int choice = int.Parse(Console.ReadLine());
+                char ch = Console.ReadKey().KeyChar;
+                Console.WriteLine();
+                int choice = ch - 48;
                 switch (choice)
                 {
                     case 1:
