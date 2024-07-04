@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace c_sharp_apps_Masarwa_Shadi.SportApp
@@ -23,6 +26,7 @@ namespace c_sharp_apps_Masarwa_Shadi.SportApp
                 Console.WriteLine("=====================");
                 Console.WriteLine("1. Show League Table");
                 Console.WriteLine("2. Play Game");
+                Console.WriteLine("3. Plyer App");
                 Console.WriteLine("0. Exit");
                 Console.WriteLine("=====================");
                 Console.Write("Enter Choice: ");
@@ -37,6 +41,9 @@ namespace c_sharp_apps_Masarwa_Shadi.SportApp
                         break;
                     case 2:
                         PlayGame(groups);
+                        break;
+                    case 3:
+                        PlayerApp();
                         break;
                     case 0:
                         finish = true;
@@ -161,6 +168,137 @@ namespace c_sharp_apps_Masarwa_Shadi.SportApp
                         finish = true;
                         game.FinishGame();
                         break;
+                }
+            }
+        }
+
+        private static void PlayerApp()
+        {
+            while (true)
+            {
+                Screen.Clean();
+
+                Console.WriteLine("Choose Game Type:");
+                Console.WriteLine("=============================");
+                Console.WriteLine("1. Soccer");
+                Console.WriteLine("2. Basketball");
+                Console.WriteLine();
+                Console.WriteLine("0. Go Back");
+                Console.WriteLine("=============================");
+
+                Console.WriteLine();
+                Console.Write("Enter choice: ");
+                char ch = Console.ReadKey().KeyChar;
+                Console.WriteLine();
+                int choice = ch - 48;
+                Console.WriteLine();
+                switch (choice)
+                {
+                    case 1:
+                        PlaySoccer();
+                        break;
+                    case 2:
+                        PlayBasketBall();
+                        break;
+                    case 0:
+                        return;
+                }
+
+            }
+        }
+
+        private static void PlaySoccer()
+        {
+            Screen.Clean();
+            Console.Write("Enter Player Name --> ");
+            string name = Console.ReadLine();
+            SoccerPlayer player = new SoccerPlayer(name);
+            
+            while (true)
+            {
+                Screen.Clean();
+                Console.WriteLine("Game On - Player: {0}", name);
+                Console.WriteLine("=============================");
+                Console.WriteLine("1. Goal ({0})", player.GetPoints());
+                Console.WriteLine("2. Assist ({0})", player.GetAssists());
+                Console.WriteLine("3. Foul ({0})", player.GetFouls());
+                Console.WriteLine("4. Red Card");
+                Console.WriteLine();
+                Console.WriteLine("0. Finish Game");
+                Console.WriteLine("=============================");
+
+                Console.Write("Enter choice: ");
+                char ch = Console.ReadKey().KeyChar;
+                int choice = ch - 48;
+                Console.WriteLine();
+                switch (choice)
+                {
+                    case 1:
+                        player.ScoreField();
+                        break;
+                    case 2:
+                        player.AddAssist();
+                        break;
+                    case 3:
+                        player.AddFoul();
+                        break;
+                    case 4:
+                        player.SetRedCard(true);
+                        return;
+                    case 0:
+                        player.GameOver();
+                        return;
+                }
+            }
+        }
+
+        private static void PlayBasketBall()
+        {
+            Screen.Clean();
+            Console.Write("Enter Player Name --> ");
+            string name = Console.ReadLine();
+            BasketBallPlayer player = new BasketBallPlayer(name);
+
+            while (true)
+            {
+                Screen.Clean();
+                Console.WriteLine("Game On - Player: {0}", name);
+                Console.WriteLine("=============================");
+                Console.WriteLine("1. Dunk ({0})",player.Dunks);
+                Console.WriteLine("2. 3 Points ({0})", player.ThreeShots);
+                Console.WriteLine("3. Assist ({0})", player.GetAssists());
+                Console.WriteLine("4. Rebound ({0})", player.Rebounds);
+                Console.WriteLine("5. Foul ({0})",player.GetFouls());
+                Console.WriteLine();
+                Console.WriteLine("0. Finish Game");
+                Console.WriteLine("=============================");
+
+                Console.Write("Enter choice: ");
+                char ch = Console.ReadKey().KeyChar;
+                int choice = ch - 48;
+                Console.WriteLine();
+                switch (choice)
+                {
+                    case 1:
+                        player.ScoreField();
+                        break;
+                    case 2:
+                        player.Score3();
+                        break;
+                    case 3:
+                        player.AddAssist();
+                        break;
+                    case 4:
+                        player.AddRebound();
+                        break;
+                    case 5:
+                        player.AddFoul();
+                        if (player.GetFouls() == 5)
+                            return;
+                        break;
+                    case 0:
+                        player.GameOver();
+                        return;
                 }
             }
         }
