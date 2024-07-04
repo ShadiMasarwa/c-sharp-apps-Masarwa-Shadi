@@ -10,7 +10,7 @@ namespace c_sharp_apps_Masarwa_Shadi.BankApp
     {
         public static void MainEntry()
         {
-            Console.WriteLine("BankApp");
+            TestAccount.Test1();
         }
     }
 }
