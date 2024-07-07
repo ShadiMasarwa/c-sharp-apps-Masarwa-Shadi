@@ -40,37 +40,41 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
 
 
 
-        public override bool CalculateHasRoom()
+        public override void CalculateHasRoom()
         {
             if (Math.Round(Seats * 1.1) > CurrentPassengers)
-                return true;
-            return false;
+                HasRoom = true;
+            else
+                HasRoom = false;
         }
 
         public override void UploadPassengers(int passengers)
         {
-            int allSeats = (int)Math.Round(Seats * 1.1);
-            if (CalculateHasRoom() == false)
+            int AvailableSeats = (int)Math.Round(Seats * 1.1) - CurrentPassengers;
+            CalculateHasRoom();
+            if (!HasRoom)
             {
                 //Console.WriteLine("Bus if Full!!");
                 return;
             }
-            if (passengers + CurrentPassengers <= allSeats)
+            if (passengers + CurrentPassengers <= AvailableSeats)
             {
                 CurrentPassengers += passengers;
                 //Console.WriteLine("All passengers registered successfully!!");
             }
             else
             {
-                RejectedPassengers = Math.Abs(Seats - (CurrentPassengers + passengers));
-                CurrentPassengers = allSeats;
+                RejectedPassengers = passengers-AvailableSeats;
+                CurrentPassengers += AvailableSeats;
                 //Console.WriteLine($"{passengers- RejectedPassengers} were registred, {RejectedPassengers} were rejected!!");
             }
+            if (CurrentPassengers == (int)Math.Round(Seats * 1.1))
+                HasRoom = false;
         }
 
         public override string ToString()
         {
-            return base.ToString()+$", Doors: {Doors}, Bell Stop: {BellStop}";
+            return base.ToString()+$", Doors: {Doors}, Bell Stop: {BellStop}, Has Room: {HasRoom}, Rejected Passengers: {RejectedPassengers}";
         }
     }
 }

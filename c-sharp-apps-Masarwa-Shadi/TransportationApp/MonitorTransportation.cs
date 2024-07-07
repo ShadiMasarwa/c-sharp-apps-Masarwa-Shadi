@@ -183,6 +183,8 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
                 Console.WriteLine("Test 10 Passed");
             }
 
+           
+
 
 
             Console.WriteLine("\n*********************************\n");
@@ -199,8 +201,13 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
 
             }
             Console.WriteLine("\n*********************************\n");
+            Console.WriteLine("Self Tasts");
+            Console.WriteLine("\n*********************************\n");
+            Console.WriteLine("Check ToString() Methods");
+            Console.WriteLine(bus);
+            Console.WriteLine(passengersAirplain1);
+            Console.WriteLine(passengersTrain1);
 
-            Console.ReadKey();
         }
     }
 }

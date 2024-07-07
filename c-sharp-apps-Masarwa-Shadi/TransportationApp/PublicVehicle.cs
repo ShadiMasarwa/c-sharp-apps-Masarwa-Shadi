@@ -56,18 +56,20 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
         public int RejectedPassengers { get => rejectedPassengers; set => rejectedPassengers = value; }
         public bool HasRoom { get => hasRoom; set => hasRoom = value; }
 
-        public virtual bool CalculateHasRoom()
+        public virtual void CalculateHasRoom()
         {
             if (seats > currentPassengers)
-                return true;
-            return false;
+                HasRoom=true;
+            else
+                HasRoom = false;
         }
 
         public virtual void UploadPassengers(int passengers)
         {
-            if (CalculateHasRoom() == false)
+            CalculateHasRoom();
+            if (!HasRoom)
             {
-                Console.WriteLine("Vehicle is Full!!");
+                //Console.WriteLine("Vehicle is Full!!");
                 return;
             }
             if (passengers + currentPassengers <= seats)
@@ -77,11 +79,15 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
                 rejectedPassengers = Math.Abs(seats - (currentPassengers + passengers));
                 currentPassengers = seats;
             }
+            if (currentPassengers == seats)
+                HasRoom = false;
         }
 
         public override string ToString()
         {
-            return $"Vehicle:, Line:{line}, Id:{id}, MaxSpead:{maxSpeed}, Seats:{seats}, Passengers: {CurrentPassengers}";
+            return $"Vehicle: {this.GetType().Name}, Line: {line}, Id: {id}, MaxSpead: {maxSpeed}, Seats: {seats}, Passengers: {CurrentPassengers}";
         }
+
+        
     }
 }

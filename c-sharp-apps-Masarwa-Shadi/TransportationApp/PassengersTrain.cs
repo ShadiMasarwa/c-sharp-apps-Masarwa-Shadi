@@ -39,13 +39,20 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
             Crones = croneArray;
             this.CronesAmount = cronesAmount;
             MaxSpeed = maxSpeed;
+            int allSeats = 0;
+            foreach (Crone c in Crones)
+            {
+                allSeats += c.GetSeats();
+            }
+            Seats = allSeats;
         }
 
-        public override bool CalculateHasRoom()
+        public override void CalculateHasRoom()
         {
             if (GetEmptySeats() > 0)
-                return true;
-            return false;
+                HasRoom = true;
+            else
+                HasRoom = false;
         }
 
         private int GetEmptySeats()
@@ -59,28 +66,31 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
         }
         public override void UploadPassengers(int passengers)
         {
+            CalculateHasRoom();
             int emptySeats = GetEmptySeats();
-            if (CalculateHasRoom() == false)
+            if (!HasRoom)
             {
                 //Console.WriteLine("Train is full!!");
                 return;
             }
-            if (passengers + CurrentPassengers <= emptySeats)
+            if (passengers <= emptySeats)
             {
                 CurrentPassengers += passengers;
                 //Console.WriteLine("All passengers registered successfully!!");
             }
             else
             {
-                RejectedPassengers = passengers- emptySeats; 
+                RejectedPassengers = passengers - emptySeats; 
                 CurrentPassengers += emptySeats;
                 //Console.WriteLine($"{emptySeats} were registred, {RejectedPassengers} were rejected!!");
             }
+            if (GetEmptySeats() == 0)
+                HasRoom = false;
         }
 
         public override string ToString()
         {
-            return base.ToString() + $", Crones: {CronesAmount}";
+            return base.ToString() + $", Crones: {CronesAmount}, Has Room: {HasRoom}, Rejected Passengers: {RejectedPassengers}";
         }
 
     }

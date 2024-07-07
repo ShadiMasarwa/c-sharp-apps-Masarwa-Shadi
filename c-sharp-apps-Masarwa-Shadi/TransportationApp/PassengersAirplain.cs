@@ -34,7 +34,7 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
             Columns = 0;
         }
 
-        public PassengersAirplain(int enginesNum, int wingLength, int rows, int columns, int line, int id):base(line, id)
+        public PassengersAirplain(int line, int id, int enginesNum, int wingLength, int rows, int columns):base(line, id)
         {
             EnginesNum = enginesNum;
             WingLength = wingLength;
@@ -43,36 +43,40 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
             Seats = rows * columns;
         }
 
-        public override bool CalculateHasRoom()
+        public override void CalculateHasRoom()
         {
             if (Seats - 7 > CurrentPassengers)
-                return true;
-            return false;
+                HasRoom = true;
+            else
+                HasRoom = false;
         }
 
         public override void UploadPassengers(int passengers)
         {
-            int allSeats = Seats - 7;
-            if (CalculateHasRoom() == false)
+            CalculateHasRoom();
+            int availableSeats = Seats - 7 - CurrentPassengers;
+            if (!HasRoom)
             {
                 //Console.WriteLine("Airplaine if Full!!");
                 return;
             }
-            if (passengers + CurrentPassengers <= allSeats)
+            if (passengers <= availableSeats)
             {
                 CurrentPassengers += passengers;
                 //Console.WriteLine("All passengers registered successfully!!");
             }
             else
             {
-                RejectedPassengers = CurrentPassengers + passengers - allSeats;
-                CurrentPassengers = allSeats;
+                RejectedPassengers = passengers-availableSeats;
+                CurrentPassengers = Seats-7;
                 //Console.WriteLine($"{passengers - RejectedPassengers} were registred, {RejectedPassengers} were rejected!!");
             }
+            if (CurrentPassengers == Seats - 7)
+                HasRoom = false;
         }
         public override string ToString()
         {
-            return base.ToString() + $", Engines: {EnginesNum}, Wing Length: {WingLength}, Rows:{Rows}, Columns: {Columns}";
+            return base.ToString() + $", Engines: {EnginesNum}, Wing Length: {WingLength}, Rows: {Rows}, Columns: {Columns}";
         }
     }
 }
