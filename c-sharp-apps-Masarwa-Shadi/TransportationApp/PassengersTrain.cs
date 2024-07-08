@@ -37,7 +37,7 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
                 croneArray[i] = new Crone(crone);
             }
             Crones = croneArray;
-            this.CronesAmount = cronesAmount;
+            CronesAmount = cronesAmount;
             MaxSpeed = maxSpeed;
             int allSeats = 0;
             foreach (Crone c in Crones)
@@ -66,12 +66,21 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
         }
         public override void UploadPassengers(int passengers)
         {
+            if (passengers < 0)
+            {
+                ProcessNegativePassengers(passengers);
+                return;
+            }
             CalculateHasRoom();
             int emptySeats = GetEmptySeats();
             if (!HasRoom)
             {
                 //Console.WriteLine("Train is full!!");
                 return;
+            }
+            if (passengers < 0)
+            {
+
             }
             if (passengers <= emptySeats)
             {

@@ -53,6 +53,11 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
 
         public override void UploadPassengers(int passengers)
         {
+            if (passengers < 0)
+            {
+                ProcessNegativePassengers(passengers);
+                return;
+            }
             CalculateHasRoom();
             int availableSeats = Seats - 7 - CurrentPassengers;
             if (!HasRoom)
@@ -76,7 +81,7 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
         }
         public override string ToString()
         {
-            return base.ToString() + $", Engines: {EnginesNum}, Wing Length: {WingLength}, Rows: {Rows}, Columns: {Columns}";
+            return base.ToString() + $", Engines: {EnginesNum}, Wing Length: {WingLength}, Rows: {Rows}, Columns: {Columns}, Has Room: {HasRoom}";
         }
     }
 }

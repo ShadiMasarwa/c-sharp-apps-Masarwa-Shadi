@@ -63,9 +63,28 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
             else
                 HasRoom = false;
         }
-
+        protected void ProcessNegativePassengers(int passengers)
+        {
+            if (Math.Abs(passengers) <= CurrentPassengers)
+            {
+                CurrentPassengers += passengers;
+                HasRoom = true;
+                return;
+            }
+            else
+            {
+                CurrentPassengers = 0;
+                HasRoom = true;
+                return;
+            }
+        }
         public virtual void UploadPassengers(int passengers)
         {
+            if (passengers < 0)
+            {
+                ProcessNegativePassengers(passengers);
+                return;
+            }
             CalculateHasRoom();
             if (!HasRoom)
             {

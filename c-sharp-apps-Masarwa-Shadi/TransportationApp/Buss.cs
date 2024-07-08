@@ -50,25 +50,31 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
 
         public override void UploadPassengers(int passengers)
         {
-            int AvailableSeats = (int)Math.Round(Seats * 1.1) - CurrentPassengers;
+            if (passengers < 0)
+            {
+                ProcessNegativePassengers(passengers);
+                return;
+            }
+            int totalSeats = (int)Math.Round(Seats * 1.1);
+            int availableSeats = totalSeats - CurrentPassengers;
             CalculateHasRoom();
             if (!HasRoom)
             {
                 //Console.WriteLine("Bus if Full!!");
                 return;
             }
-            if (passengers + CurrentPassengers <= AvailableSeats)
+            if (passengers + CurrentPassengers <= availableSeats)
             {
                 CurrentPassengers += passengers;
                 //Console.WriteLine("All passengers registered successfully!!");
             }
             else
             {
-                RejectedPassengers = passengers-AvailableSeats;
-                CurrentPassengers += AvailableSeats;
+                RejectedPassengers = passengers-availableSeats;
+                CurrentPassengers += availableSeats;
                 //Console.WriteLine($"{passengers- RejectedPassengers} were registred, {RejectedPassengers} were rejected!!");
             }
-            if (CurrentPassengers == (int)Math.Round(Seats * 1.1))
+            if (CurrentPassengers == totalSeats)
                 HasRoom = false;
         }
 
