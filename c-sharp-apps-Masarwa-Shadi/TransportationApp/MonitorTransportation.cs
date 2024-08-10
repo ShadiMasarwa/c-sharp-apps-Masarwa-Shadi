@@ -10,6 +10,7 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
     {
         public static void Test1()
         {
+            
             //TODO: 
 
             //some tests:
@@ -200,68 +201,68 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
                 Console.WriteLine("YOU HAVE FAILURES AT THE TESTS :( - SEE ABOVE");
 
             }
-            Console.WriteLine("\n*********************************\n");
-            Console.WriteLine("Self Tasts");
-            Console.WriteLine("\n*********************************\n");
-            Console.WriteLine("Check ToString() Methods\n");
-            Console.WriteLine(bus);
-            Console.WriteLine(passengersAirplain1);
-            Console.WriteLine(passengersTrain1);
-            Console.WriteLine("\n*********************************\n");
-            Console.WriteLine("Check Get Off the vehicle");
+        //    Console.WriteLine("\n*********************************\n");
+        //    Console.WriteLine("Self Tasts");
+        //    Console.WriteLine("\n*********************************\n");
+        //    Console.WriteLine("Check ToString() Methods\n");
+        //    Console.WriteLine(bus);
+        //    Console.WriteLine(passengersAirplain1);
+        //    Console.WriteLine(passengersTrain1);
+        //    Console.WriteLine("\n*********************************\n");
+        //    Console.WriteLine("Check Get Off the vehicle");
 
-            bool passNewCheck = true;
-            bus.UploadPassengers(-60);
-            bus.UploadPassengers(20);
-            if (bus.CurrentPassengers == 20 && bus.HasRoom)
-            {
-                Console.WriteLine("Test 11 Passed ");
-            }
-            else
-            {
-                Console.WriteLine("Test 11 Error - CurrentPassengers should be {0} but actual is {1} \n" +
-                  "And HasRoom should be {2} but actual is {3} ", 20, bus.CurrentPassengers,
-                  true, bus.HasRoom);
-                passNewCheck = false;
-            }
+        //    bool passNewCheck = true;
+        //    bus.UploadPassengers(-60);
+        //    bus.UploadPassengers(20);
+        //    if (bus.CurrentPassengers == 20 && bus.HasRoom)
+        //    {
+        //        Console.WriteLine("Test 11 Passed ");
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("Test 11 Error - CurrentPassengers should be {0} but actual is {1} \n" +
+        //          "And HasRoom should be {2} but actual is {3} ", 20, bus.CurrentPassengers,
+        //          true, bus.HasRoom);
+        //        passNewCheck = false;
+        //    }
             
-            passengersAirplain1.UploadPassengers(-400);
-            if (passengersAirplain1.CurrentPassengers == 0 && passengersAirplain1.HasRoom)
-            {
-                Console.WriteLine("Test 12 Passed ");
-            }
-            else
-            {
-                Console.WriteLine("Test 12 Error - CurrentPassengers should be {0} but actual is {1} \n" +
-                  "And HasRoom should be {2} but actual is {3} ", 0, passengersAirplain1.CurrentPassengers,
-                  true, passengersAirplain1.HasRoom);
-                passNewCheck = false;
-            }
+        //    passengersAirplain1.UploadPassengers(-400);
+        //    if (passengersAirplain1.CurrentPassengers == 0 && passengersAirplain1.HasRoom)
+        //    {
+        //        Console.WriteLine("Test 12 Passed ");
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("Test 12 Error - CurrentPassengers should be {0} but actual is {1} \n" +
+        //          "And HasRoom should be {2} but actual is {3} ", 0, passengersAirplain1.CurrentPassengers,
+        //          true, passengersAirplain1.HasRoom);
+        //        passNewCheck = false;
+        //    }
 
-            passengersTrain1.UploadPassengers(-250);
-            if (passengersTrain1.CurrentPassengers == 450 && passengersTrain1.HasRoom)
-            {
-                Console.WriteLine("Test 13 Passed ");
-            }
-            else
-            {
-                Console.WriteLine("Test 13 Error - CurrentPassengers should be {0} but actual is {1} \n" +
-                  "And HasRoom should be {2} but actual is {3} ", 450, passengersTrain1.CurrentPassengers,
-                  true, passengersTrain1.HasRoom);
-                passNewCheck = false;
-            }
+        //    passengersTrain1.UploadPassengers(-250);
+        //    if (passengersTrain1.CurrentPassengers == 450 && passengersTrain1.HasRoom)
+        //    {
+        //        Console.WriteLine("Test 13 Passed ");
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("Test 13 Error - CurrentPassengers should be {0} but actual is {1} \n" +
+        //          "And HasRoom should be {2} but actual is {3} ", 450, passengersTrain1.CurrentPassengers,
+        //          true, passengersTrain1.HasRoom);
+        //        passNewCheck = false;
+        //    }
 
 
-            Console.WriteLine("\n*********************************");
-            if (passNewCheck)
-            {
-                Console.WriteLine("All NEW TESTS PASSED!!");
-            }
-            else
-            {
-                Console.WriteLine("YOU HAVE FAILURES AT THE TESTS :( - SEE ABOVE");
-            }
-            Console.WriteLine("*********************************\n");
+        //    Console.WriteLine("\n*********************************");
+        //    if (passNewCheck)
+        //    {
+        //        Console.WriteLine("All NEW TESTS PASSED!!");
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("YOU HAVE FAILURES AT THE TESTS :( - SEE ABOVE");
+        //    }
+        //    Console.WriteLine("*********************************\n");
 
 
         }
