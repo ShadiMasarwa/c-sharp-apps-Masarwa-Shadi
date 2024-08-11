@@ -61,7 +61,24 @@
     <Compile Include="SportApp\TestSportApp.cs" />
     <Compile Include="StockDemo\ExchangeDemo.cs" />
     <Compile Include="StockDemo\Stock.cs" />
+    <Compile Include="TransportationApp\Airplane.cs" />
+    <Compile Include="TransportationApp\Crone.cs" />
+    <Compile Include="TransportationApp\Driver.cs" />
+    <Compile Include="TransportationApp\ElecticDeviceItem.cs" />
+    <Compile Include="TransportationApp\FurnitureItem.cs" />
+    <Compile Include="TransportationApp\GeneralItem.cs" />
+    <Compile Include="TransportationApp\Port.cs" />
+    <Compile Include="TransportationApp\shared\AddData.cs" />
+    <Compile Include="TransportationApp\shared\CargoVehicle.cs" />
+    <Compile Include="TransportationApp\shared\IContainable.cs" />
+    <Compile Include="TransportationApp\shared\IPortable.cs" />
+    <Compile Include="TransportationApp\shared\IShippingPriceCalculator.cs" />
+    <Compile Include="TransportationApp\shared\Product.cs" />
+    <Compile Include="TransportationApp\shared\StorageStructure.cs" />
+    <Compile Include="TransportationApp\Ship.cs" />
+    <Compile Include="TransportationApp\Train.cs" />
     <Compile Include="TransportationApp\TransportationAppMain.cs" />
+    <Compile Include="TransportationApp\Warehouse.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
