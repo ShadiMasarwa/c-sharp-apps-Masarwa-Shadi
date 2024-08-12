@@ -8,6 +8,7 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp.shared
 {
     public interface IPortable
     {
+        string Name { get; }
         double GetVolume();
         double GetWeight();
         void PackageItem();
@@ -16,7 +17,8 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp.shared
         bool IsFragile();
         void SetAsFragile();
         bool IsLoaded();
-        StorageStructure GetLocation();
+        //StorageStructure GetLocation();
+
 
     }
 }

@@ -35,10 +35,11 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp.shared
 
         public string Name { get => name; set => name = value; }
         public string Sku { get => sku; set => sku = value; }
+        public StorageStructure Location { get => location; set => location = value; }
 
         public double GetVolume()
         {
-            return width * height * length;
+            return width/100 * height/100 * length/100;
         }
         public double GetWeight()
         {
@@ -69,14 +70,37 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp.shared
         {
             return loaded;
         }
-        public StorageStructure GetLocation()
+
+        public override string ToString()
         {
-            return location;
+            return "Name: " + name;
         }
 
-        public void SetLocation(StorageStructure storage)
+        public override bool Equals(object obj)
         {
-            location = storage;
+            return obj is Product product &&
+                   sku == product.sku &&
+                   name == product.name &&
+                   width == product.width &&
+                   height == product.height &&
+                   length == product.length &&
+                   weight == product.weight &&
+                   packaged == product.packaged &&
+                   fragile == product.fragile &&
+                   loaded == product.loaded &&
+                   location == product.location;
         }
+
+
+        //string sku, string name, double width, double height, double length, double weight, bool packaged, bool fragile, bool loaded, StorageStructure location
+        //public StorageStructure GetLocation()
+        //{
+        //    return location;
+        //}
+
+        //public void SetLocation(StorageStructure storage)
+        //{
+        //    location = storage;
+        //}
     }
 }

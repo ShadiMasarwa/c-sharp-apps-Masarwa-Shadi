@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
 {
-    public class Driver : CargoVehicle
+    public class Driver
     {
         public enum License
         {
+            Private,
+            Public,
             Train,
             Ship,
             Airplane

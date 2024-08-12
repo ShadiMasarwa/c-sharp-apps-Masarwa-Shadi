@@ -68,7 +68,6 @@
     <Compile Include="TransportationApp\FurnitureItem.cs" />
     <Compile Include="TransportationApp\GeneralItem.cs" />
     <Compile Include="TransportationApp\Port.cs" />
-    <Compile Include="TransportationApp\shared\AddData.cs" />
     <Compile Include="TransportationApp\shared\CargoVehicle.cs" />
     <Compile Include="TransportationApp\shared\IContainable.cs" />
     <Compile Include="TransportationApp\shared\IPortable.cs" />

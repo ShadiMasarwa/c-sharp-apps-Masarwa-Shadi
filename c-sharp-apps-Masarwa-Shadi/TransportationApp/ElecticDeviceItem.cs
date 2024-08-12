@@ -10,15 +10,15 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
     public class ElecticDeviceItem : Product
     {
         private string type;
-        private int watt;
+        private int wattage;
 
         public ElecticDeviceItem(string sku, string name, double width, double height, double length, double weight, bool packaged, bool fragile, bool loaded, StorageStructure location, string type, int watt) : base(sku, name, width, height, length, weight, packaged, fragile, loaded, location)
         {
             Type = type;
-            Watt = watt;
+            Wattage = wattage;
         }
 
         public string Type { get => type; set => type = value; }
-        public int Watt { get => watt; set => watt = value; }
+        public int Wattage { get => wattage; set => wattage = value; }
     }
 }

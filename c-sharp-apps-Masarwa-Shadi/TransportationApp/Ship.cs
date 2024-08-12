@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
 {
-    public class Ship:CargoVehicle
+    public class Ship
     {
         private int maxContainers;
     }

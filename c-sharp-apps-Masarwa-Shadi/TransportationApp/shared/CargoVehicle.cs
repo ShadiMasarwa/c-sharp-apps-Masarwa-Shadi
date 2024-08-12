@@ -21,7 +21,7 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp.shared
         private double maxWeight;
         private List<IPortable> items;
 
-        protected CargoVehicle(Vehicle type, double width, double height, double length, double maxWeight, List<IPortable> items)
+        public CargoVehicle(Vehicle type, double width, double height, double length, double maxWeight, List<IPortable> items)
         {
             this.type = type;
             this.width = width;
@@ -31,7 +31,7 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp.shared
             this.items = items;
         }
 
-        protected CargoVehicle(Vehicle type)
+        public CargoVehicle(Vehicle type)
         {
             this.type = type;
         }
