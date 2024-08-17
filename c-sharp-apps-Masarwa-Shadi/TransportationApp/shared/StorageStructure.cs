@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static c_sharp_apps_Masarwa_Shadi.TransportationApp.shared.CargoVehicle;
 
 namespace c_sharp_apps_Masarwa_Shadi.TransportationApp.shared
 {
@@ -15,6 +17,7 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp.shared
         private double length;
         private double maxWeight;
         private List<List<IPortable>> items;
+        private string message;
 
         public StorageStructure(string name, string country, double width, double height, double length, double maxWeight, List<List<IPortable>> items)
         {
@@ -34,7 +37,7 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp.shared
         public double Height { get => height; set => height = value; }
         public double Length { get => length; set => length = value; }
         public double MaxWeight { get => maxWeight; set => maxWeight = value; }
-        
+        public string Message { get => message; set => message = value; }
 
         public double GetStorageVolume()
         {
@@ -43,15 +46,24 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp.shared
 
         public bool Load(IPortable item)
         {
+            if (Items==null || Items.Count == 0)
+            {
+                item.SetAsUnloaded();
+                Items = new List<List<IPortable>> { new List<IPortable> { item } };
+                Message = $"New item ({item.Name}) successfuly loaded to {name}";
+                return true;
+            }
+
             double roomInStorage = GetRoomInStorage();
             double itemVolume = item.GetVolume();
             double itemWeight = item.GetWeight();
             double weightLeftInStorage = GetLeftWeight();
             if (itemVolume > roomInStorage || itemWeight > weightLeftInStorage)
             {
-                Console.WriteLine($"{item.Name} volume or weight exceeds empty space or weight in {name}");
+                Message = $"{item.Name} volume or weight exceeds empty space or weight in {name}";
                 return false;
             }
+           
 
             foreach (List<IPortable> products in Items)
             {
@@ -59,17 +71,19 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp.shared
                 {
                     if (product.Equals(item))
                     {
+                        item.SetAsUnloaded();
                         products.Add(item);
-                        Console.WriteLine($"Item ({item.Name}) successfuly loaded to {name}");
+                        Message = $"Item ({item.Name}) successfuly loaded to {name}";
                         return true;
                     }
-                    else
-                        continue;
+                    //else
+                    //    continue;
                 }
             }
+            item.SetAsUnloaded();
             List<IPortable> newList = new List<IPortable> { item };
             Items.Add(newList);
-            Console.WriteLine($"New item ({item.Name}) successfuly loaded to {name}");
+            Message= $"New item ({item.Name}) successfuly loaded to {name}";
             return true;
         }
 
@@ -116,9 +130,9 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp.shared
                 }
             }
             if (flag)
-                Console.WriteLine($"All {countOfProductsInList} products were loaded successfully to {name}");
+                Message = $"All {countOfProductsInList} products were loaded successfully to {name}";
             else
-                Console.WriteLine($"{countOfProductsInList - countOfUnloadedProducts}  products were loaded successfully to {name}");
+                Message = $"{countOfProductsInList - countOfUnloadedProducts}  products were loaded successfully to {name}";
             return flag;
         }
 
@@ -131,12 +145,16 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp.shared
                     if (product.Equals(item))
                     {
                         lst.Remove(product);
-                        Console.WriteLine($"Item {product.Name} was unloaded from {name}");
+                        if (lst.Count == 0)
+                        {
+                            Items.Remove(lst);
+                        }
+                        Message = $"Item {product.Name} was unloaded from {name}";
                         return;
                     }
                 }
             }
-            Console.WriteLine($"Item {item.Name} not found in {name}");
+            Message = $"Item {item.Name} not found in {name}";
         }
 
         public void Unload(List<IPortable> lst)
@@ -147,6 +165,130 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp.shared
             }
         }
 
-        
+        public bool MoveItemToVehicleContainers(CargoVehicle vehicle, IPortable itemToMove)
+        {
+            if (!isExist(itemToMove)) return false;
+            if (vehicle.Load(itemToMove))
+            {
+                itemToMove.SetAsUnloaded();
+                foreach (List<IPortable> lst in Items)
+                    foreach(IPortable item in lst)
+                        if (item.Equals(itemToMove))
+                        {
+                            lst.Remove(itemToMove);
+                            itemToMove.SetAsLoaded();
+                            return true;
+                        }
+            }
+            return false;
+
+        }
+        public bool MoveItemToVehicleContainers(CargoVehicle vehicle, List<IPortable> itemsToTransfer)
+        {
+            if (itemsToTransfer == null || itemsToTransfer.Count == 0) return false;
+            List<IPortable> itemsCopy = new List<IPortable>(itemsToTransfer);
+            int count = 0;
+            int numOfItems = itemsCopy.Count;
+
+            foreach (IPortable item in itemsCopy)
+            {
+                if (MoveItemToVehicleContainers(vehicle, item))
+                {
+                    count++;
+                }
+            }
+
+            return count == numOfItems;
+        }
+
+        public bool MoveItemToVehicle(CargoVehicle vehicle, IPortable itemToMove)
+        {
+            if (vehicle.Type != Vehicle.Airplane)
+            {
+                return MoveItemToVehicleContainers(vehicle, itemToMove);
+            }
+            if (!isExist(itemToMove)) 
+            {
+                Message = $"Item ({itemToMove.Name}) not found in {vehicle.Type}";
+                return false;
+            }
+            if(!itemToMove.IsPackaged() || itemToMove.IsLoaded())
+            {
+                Message = $"Item ({itemToMove.Name}) is not packaged or already loaded to vehicle";
+                return false;
+            }
+            if (itemToMove.GetVolume() > vehicle.GetRoomInVehicle() || itemToMove.GetWeight()>vehicle.MaxWeight)
+            {
+                Message = $"Item ({itemToMove.Name})'s size or weight exceeds capacity of {vehicle.Type}";
+                return false;
+            }
+            if (vehicle.Items == null)
+            {
+                Unload(itemToMove);
+                itemToMove.SetAsLoaded();
+                List<IPortable> lst = new List<IPortable> { itemToMove };
+                vehicle.Items = lst;
+                Message = $"Item ({itemToMove.Name}) moved from {name} to {vehicle.Type}";
+                return true;
+            }
+            if (vehicle.GetRoomInVehicle()<itemToMove.GetVolume() || vehicle.GetWeightLeft()<itemToMove.GetWeight())
+            {
+                Message = $"There is no enough room for ({itemToMove.Name}) in {vehicle.Type}";
+                return false;
+            }
+            Unload(itemToMove);
+            itemToMove.SetAsLoaded();
+            vehicle.Load(itemToMove);
+            Message = $"Item ({itemToMove.Name}) moved from {name} to {vehicle.Type}";
+            return true;
+        }
+
+        public bool MoveItemToVehicle(CargoVehicle vehicle, List<IPortable> itemsToMove)
+        {
+            if (vehicle.Type != Vehicle.Airplane)
+            {
+                return MoveItemToVehicleContainers(vehicle, itemsToMove);
+            }
+            int itemsMoved = 0;
+            foreach(IPortable item in itemsToMove)
+            {
+                if(MoveItemToVehicle(vehicle, item))
+                    itemsMoved++;
+            }
+            Message = $"{itemsMoved} items moved from {name} to {vehicle.Type}";
+            if (itemsMoved != itemsToMove.Count())
+                return false;
+            return true;
+        }
+
+        private bool isExist(IPortable item)
+        {
+            if(Items==null || Items.Count()==0) return false;
+            foreach (List<IPortable> products in Items)
+            {
+                foreach (IPortable product in products)
+                {
+                    if (product.Equals(item))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public int GetNumOfItemsInStorage()
+        {
+            int count = 0;
+            if (Items == null) return 0;
+            foreach (List<IPortable> lst in Items)
+                foreach (IPortable item in lst)
+                    count++;
+            return count;
+        }
+
+
+
+
     }
 }

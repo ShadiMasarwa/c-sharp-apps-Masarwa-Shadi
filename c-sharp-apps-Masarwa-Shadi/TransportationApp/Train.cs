@@ -7,11 +7,9 @@ using System.Threading.Tasks;
 
 namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
 {
-    public class Train : CargoVehicle
+    public class Train : MultiUnitVehicle
     {
-        private List<Crone> crones;
-
-        public Train(Vehicle type, int numOfCrones) : base(type)
+        public Train(Vehicle type, int maxNumOfContainers) : base(type, maxNumOfContainers)
         {
         }
     }

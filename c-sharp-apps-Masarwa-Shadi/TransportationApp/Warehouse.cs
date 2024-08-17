@@ -13,14 +13,6 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
         {
         }
 
-        //public override bool Load(IPortable item)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public override void Unload(IPortable item)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        
     }
 }

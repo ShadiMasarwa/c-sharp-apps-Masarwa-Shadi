@@ -41,9 +41,20 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp.shared
         {
             return width/100 * height/100 * length/100;
         }
+
+        public double GetVolumeInCm()
+        {
+            return width * height* length;
+        }
+
         public double GetWeight()
         {
             return weight;
+        }
+
+        public void SetWeight(double value)
+        {
+            weight = value;
         }
         public void PackageItem()
         {
@@ -65,10 +76,19 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp.shared
         {
             fragile = true;
         }
-
         public bool IsLoaded()
         {
             return loaded;
+        }
+
+        public void SetAsLoaded()
+        {
+            loaded = true;
+        }
+
+        public void SetAsUnloaded()
+        {
+            loaded = false;
         }
 
         public override string ToString()

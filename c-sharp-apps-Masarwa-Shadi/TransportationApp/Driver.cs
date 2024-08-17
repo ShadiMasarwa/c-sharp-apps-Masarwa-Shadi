@@ -11,8 +11,6 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
     {
         public enum License
         {
-            Private,
-            Public,
             Train,
             Ship,
             Airplane
@@ -21,15 +19,13 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
         private string lname;
         private string id;
         private License licenseSort;
-        private CargoVehicle vehicle;
-        private bool isApprove;
+        private bool approveShipping;
 
         public string Fname { get => fname; set => fname = value; }
         public string Lname { get => lname; set => lname = value; }
         public string Id { get => id; set => id = value; }
         public License LicenseSort { get => licenseSort; set => licenseSort = value; }
-        public CargoVehicle Vehicle { get => vehicle; set => vehicle = value; }
-        public bool IsApprove { get => isApprove; set => isApprove = value; }
+        public bool ApproveShipping { get => approveShipping; set => approveShipping = value; }
 
         public Driver(string fname, string lname, string id, License licenseSort)
         {

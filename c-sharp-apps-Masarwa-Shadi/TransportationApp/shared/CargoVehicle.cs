@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,7 +21,8 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp.shared
         private double length;
         private double maxWeight;
         private List<IPortable> items;
-
+        private Driver driver;
+        private string message;
         public CargoVehicle(Vehicle type, double width, double height, double length, double maxWeight, List<IPortable> items)
         {
             this.type = type;
@@ -42,29 +44,42 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp.shared
         public double Height { get => height; set => height = value; }
         public double Length { get => length; set => length = value; }
         public double MaxWeight { get => maxWeight; set => maxWeight = value; }
+        public Driver Driver { 
+            get => driver;
+            set => driver = (type.ToString() != value.LicenseSort.ToString()) ? null : value;} 
+        public string Message { get => message; set => message = value; }
 
-        public bool Load(IPortable item)
+        public virtual bool Load(IPortable item)
         {
             double volumeOfItem = item.GetVolume();
-            double volumeOfStorage = Width * Height * Length;
-            double volumeRoomInStorage = volumeOfStorage - GetItemsVolumeInStorage();
             double weightOfItem = item.GetWeight();
-            double weigthRoomInStorage = MaxWeight - GetWeigthOfItemsInStorage();
-            if (volumeOfItem > volumeRoomInStorage || weightOfItem > weigthRoomInStorage)
+            double weigthRoomInStorage = MaxWeight - GetWeigthOfItemsInVehicle();
+            if (volumeOfItem > GetRoomInVehicle() || weightOfItem > weigthRoomInStorage)
+            {
+                Message = $"Volume or Weight of {item.Name} exceeds vehicle capacity";
                 return false;
+            }
             Items.Add(item);
+            Message = $"Item ({item.Name}) was loaded to vehicle successfully";
             return true;
         }
 
-        private double GetItemsVolumeInStorage()
+        public double GetRoomInVehicle()
         {
+            double volumeOfStorage = Width * Height * Length;
+            return volumeOfStorage - GetItemsVolumeInVehicle();
+        }
+
+        public double GetItemsVolumeInVehicle()
+        {
+            if (Items == null || Items.Count == 0) return 0;
             double volume = 0;
-            foreach (IPortable product in Items)
+            foreach (IPortable product in  Items)
                 volume += product.GetVolume();
             return volume;
         }
 
-        private double GetWeigthOfItemsInStorage()
+        public double GetWeigthOfItemsInVehicle()
         {
             double weight = 0;
             foreach (IPortable product in Items)
@@ -72,9 +87,40 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp.shared
             return weight;
         }
 
-        public void Unload(IPortable item)
+        public double GetWeightLeft()
+        {
+            return maxWeight- GetWeigthOfItemsInVehicle();
+        }
+
+        public virtual void Unload(IPortable item)
         {
             Items.Remove(item);
+        }
+
+        public virtual bool ExecuteShippingTo(StorageStructure target)
+        {
+            if (Items == null || Items.Count == 0)
+            {
+                Message =$"No products loaded to {Type}. Shippment can't be executed!!";
+                return false;
+            }
+
+            if (!Driver.ApproveShipping)
+            {
+                Message = $"Driver did not approve execution!!";
+                return false;
+            }
+            int loadedItemsToTarget = 0;
+            int initialNumOfItems = Items.Count();
+            List<IPortable> newLst = new List<IPortable>(Items);
+            foreach(IPortable item in newLst)
+            {
+                if (target.Load(item)){
+                    Items.Remove(item);
+                    loadedItemsToTarget++;
+                }
+            }
+            return initialNumOfItems==loadedItemsToTarget;
         }
     }
 }
