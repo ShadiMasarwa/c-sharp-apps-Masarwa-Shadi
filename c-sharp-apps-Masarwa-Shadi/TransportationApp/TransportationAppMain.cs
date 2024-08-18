@@ -35,6 +35,7 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
                         TestApp.RunTests();
                         break;
                     case 2:
+                        ConsoleApp.RunApp();
                         break;
                     case 0:
                         finish = true;
