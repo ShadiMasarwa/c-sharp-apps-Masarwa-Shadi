@@ -21,11 +21,11 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp.shared
         {
             List<List<IPortable>> products = new List<List<IPortable>>();
 
-            IPortable product = new ElecticDeviceItem("TQ987ER", "Samsung", 120, 8, 50, 3.5, false, true, false, location, "TV", 240);
+            IPortable product = new ElecticDeviceItem("TQ987ER", "Samsung", 120, 8, 50, 3.5, true, true, false, location, "TV", 240);
             products.Add(MultiplyProduct(product, 1));
             product = new ElecticDeviceItem("TO7123I", "Xiaomi", 150, 6, 60, 2.8, false, true, false, location, "TV", 240);
             products.Add(MultiplyProduct(product, 1));
-            product = new ElecticDeviceItem("WY0187O", "Samsung", 60, 1.3, 60, 56, false, true, false, location, "Washing Machine", 240);
+            product = new ElecticDeviceItem("WY0187O", "Samsung", 60, 1.3, 60, 56, true, true, false, location, "Washing Machine", 240);
             products.Add(MultiplyProduct(product, 1));
             product = new ElecticDeviceItem("CF5974P", "Hp", 35, 3, 25, 1, false, true, false, location, "Computer", 240);
             products.Add(MultiplyProduct(product, 1));

@@ -136,6 +136,31 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp.shared
             return flag;
         }
 
+        public bool Load(List<List<IPortable>> lst)
+        {
+            bool flag = true;
+            int countOfUnloadedProducts = 0;
+            int countOfProductsInList = 0;
+            foreach(List<IPortable> lstOfItems in lst )
+                foreach (IPortable item in lstOfItems)
+                {
+                    countOfProductsInList++;
+                    if (!Load(item))
+                    {
+                        flag = false;
+                        countOfUnloadedProducts++;
+                    }
+                }
+            if (flag)
+                Message = $"All {countOfProductsInList} products were loaded successfully to {name}";
+            else
+                Message = $"Because of {Name} capacity limitation, {countOfProductsInList - countOfUnloadedProducts} of {countOfProductsInList} products were loaded successfully to {name}";
+            if(countOfProductsInList == countOfUnloadedProducts)
+                Message = $"{Name} is full. No products were loaded!!";
+
+            return flag;
+        }
+
         public void Unload(IPortable item)
         {
             foreach (List<IPortable> lst in Items)

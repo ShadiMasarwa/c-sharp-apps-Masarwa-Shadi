@@ -81,6 +81,7 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp.shared
 
         public double GetWeigthOfItemsInVehicle()
         {
+            if (Items == null) return 0;
             double weight = 0;
             foreach (IPortable product in Items)
                 weight += product.GetWeight();

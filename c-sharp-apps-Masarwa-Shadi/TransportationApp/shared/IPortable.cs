@@ -9,6 +9,13 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp.shared
     public interface IPortable
     {
         string Name { get; }
+        string Sku { get; }
+        string Type { get; }
+        double Width { get; }
+        double Height { get; }
+        double Length { get; }
+        ElecticDeviceItem Wattage { get; }
+
         double GetVolumeInCm();
         double GetVolume();
         double GetWeight();

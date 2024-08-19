@@ -18,8 +18,9 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp.shared
         private bool fragile = false;
         private bool loaded = false;
         private StorageStructure location;
+        private string type;
 
-        public Product(string sku, string name, double width, double height, double length, double weight, bool packaged, bool fragile, bool loaded, StorageStructure location)
+        public Product(string sku, string name, double width, double height, double length, double weight, bool packaged, bool fragile, bool loaded, StorageStructure location, string type)
         {
             this.sku = sku;
             this.name = name;
@@ -31,11 +32,19 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp.shared
             this.fragile = fragile;
             this.loaded = loaded;
             this.location = location;
+            this.type = type;
         }
 
         public string Name { get => name; set => name = value; }
         public string Sku { get => sku; set => sku = value; }
         public StorageStructure Location { get => location; set => location = value; }
+        public double Width { get => width; set => width = value; }
+        public double Height { get => height; set => height = value; }
+        public double Length { get => length; set => length = value; }
+
+        public string Type { get => type; set => type = value; }
+
+        public ElecticDeviceItem Wattage => throw new NotImplementedException();
 
         public double GetVolume()
         {
