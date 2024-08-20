@@ -123,5 +123,7 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp.shared
             }
             return initialNumOfItems==loadedItemsToTarget;
         }
+
+        public abstract int NumOfItemsInUnits();
     }
 }

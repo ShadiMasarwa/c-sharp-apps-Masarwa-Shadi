@@ -57,19 +57,20 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
         public static int CalculateMulipleUnitCargoFees(MultiUnitVehicle cargoVehicle, double distance)
         {
             InitializeValues();
-            if (cargoVehicle.Items == null || cargoVehicle.Items.Count == 0) return 0;
+            if (cargoVehicle.Units == null) return 0;
 
             foreach (GeneralContainer unit in cargoVehicle.Units)
+                if(unit.Items!=null)
                 foreach (IPortable item in unit.Items)
-                {
-                    totalWeight += item.GetWeight();
-                    totalVolume += item.GetVolumeInCm();
-                    if (item.IsFragile())
                     {
                         totalWeight += item.GetWeight();
                         totalVolume += item.GetVolumeInCm();
+                        if (item.IsFragile())
+                        {
+                            totalWeight += item.GetWeight();
+                            totalVolume += item.GetVolumeInCm();
+                        }
                     }
-                }
             basicFees = cargoVehicle.Type == CargoVehicle.Vehicle.Train ? 5 : cargoVehicle.Type == CargoVehicle.Vehicle.Ship ? 20 : 50;
             units = totalVolume / 100 + totalWeight;
             totalFees = (int)Math.Round(units * basicFees);
@@ -80,10 +81,6 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
 
         public static void PrintHeader(CargoVehicle cargoVehicle)
         {
-            Console.WriteLine("\n"+dash);
-            Console.WriteLine($"                            Shipping Fees");
-            Console.WriteLine($"                             By {cargoVehicle.Type}");
-            Console.WriteLine(dash);
             Console.WriteLine($"{"Product",-30}{"Volume",-15}{"Weight",-15}{"Fragil",-10}");
             Console.WriteLine($"{"-------",-30}{"------",-15}{"------",-15}{"------",-10}");
             //if (cargoVehicle.Type == CargoVehicle.Vehicle.Airplane)

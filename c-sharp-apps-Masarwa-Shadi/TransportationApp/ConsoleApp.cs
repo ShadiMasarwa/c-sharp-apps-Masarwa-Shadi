@@ -25,9 +25,16 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
         
 
 
-        public static void RunApp()
+        public static void RunApp(bool demo)
         {
-            ImportInitialInfo(warehouses, vehicles, drivers);
+            if (demo)
+            {
+                vehicles.Clear();
+                warehouses.Clear();
+                drivers.Clear();
+                ImportInitialInfo(warehouses, vehicles, drivers);
+
+            }
             Console.ForegroundColor = ConsoleColor.White;
             bool finish = false;
             while (!finish)
@@ -173,8 +180,9 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
                     FColorChange("white");
                     stage3 = true;
                 }
-                Console.Write("4. Move packaged products from storage to vehicle - ");
-                if (vehicle == null || vehicle.Items == null || vehicle.Items.Count==0)
+                Console.Write("4. Package and Move products from storage to vehicle - ");
+                int numOfProductsInVehicle = GetNumOfProducts(vehicle);
+                if (numOfProductsInVehicle==0)
                 {
                     FColorChange("red");
                     Console.WriteLine("Not Compleated");
@@ -184,7 +192,7 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
                 {
                     Console.Write($" (");
                     FColorChange("yellow");
-                    Console.Write($"{vehicle.Items.Count}");
+                    Console.Write($"{numOfProductsInVehicle}");
                     FColorChange("white");
                     Console.Write(" Products) - ");
                     FColorChange("green");
@@ -194,15 +202,19 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
                 }
                 if (stage1 && stage2 && stage3 && stage4)
                 {
+                    Console.Write("\n5. Process Shipment (");
                     FColorChange("green");
-                    Console.WriteLine("\n5. Process Shipment");
+                    Console.Write("Ready");
                     FColorChange("white");
+                    Console.WriteLine(")");
                 }
                 else
                 {
+                    Console.Write("\n5. Process Shipment ("); 
                     FColorChange("red");
-                    Console.WriteLine("\n5. Process Shipment"); 
+                    Console.Write("Not Ready");
                     FColorChange("white");
+                    Console.WriteLine(")");
                 }
                 Console.WriteLine("\n0. Exit");
                 Dash();
@@ -239,6 +251,7 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
                     case 4:
                         if (source == null || vehicle == null)
                             break;
+                        PackageProductsInStorage(source);
                         if(MoveProducts(source, ref vehicle))
                         {
                             FColorChange("green");
@@ -255,7 +268,11 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
                         }
                         break;
                     case 5:
-                        ShipProducts(source, target, vehicle);
+                        if (stage1 && stage2 && stage3 && stage4)
+                        {
+                            ShipProducts(source, target, vehicle);
+                            finish = true;
+                        }
                         break;
                     case 0:
                         finish = true;
@@ -264,21 +281,48 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
             }
         }
 
+        private static int GetNumOfProducts(CargoVehicle vehicle)
+        {
+            int num;
+
+            if (vehicle == null)
+                return 0;
+            if (vehicle.Type == Vehicle.Airplane)
+                num = vehicle.NumOfItemsInUnits();
+            else
+                num = vehicle.NumOfItemsInUnits();
+            return num;
+        }
+
         private static void ShipProducts(StorageStructure source, StorageStructure target, CargoVehicle vehicle)
         {
             PrintHeader("Ship Product");
-            Console.Write($"Enter distance between ({source.Name}) to ({target.Name}): ");
-            int distance = int.Parse(Console.ReadLine());
-            Console.Write($"Do Driver approve shipment (Y/N): ");
-            string approve = Console.ReadLine().ToUpper();
+            bool finish = false;
+            double distance = 0;
+            while (!finish)
+            {
+                Console.Write($"Enter distance between ({source.Name}) to ({target.Name}): ");
+                string input = Console.ReadLine();
+                if (double.TryParse(input, out distance))
+                {
+                    finish = true;
+                }
+            }
+            string approve = "";
+            while (approve != "Y" && approve != "N")
+            {
+                Console.Write($"Do Driver approve shipment (Y/N): ");
+                approve= Console.ReadLine().ToUpper();
+
+            }
             if (approve == "Y")
             {
                 vehicle.Driver.ApproveShipping = true;
             }
             else
                 return;
+            PrintHeader("Shipment Invoice");
             ShippingPriceCalculator.PrintInvoice(vehicle, distance);
-            Console.ReadKey();
 
             if (vehicle.ExecuteShippingTo(target))
             {
@@ -300,22 +344,12 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
         {
             vehicle.Items = new List<IPortable>();
             bool allMoved = true;
-            if (source.GetType().Name == "Airplane")
-            {
-                foreach (List<IPortable> lst in source.Items)
-                {
-                    if (!source.MoveItemToVehicle(vehicle, lst))
-                        allMoved = false;
-                }
-            }
-            else
-            {
+            
                 foreach (List<IPortable> lst in source.Items)
                 {
                     if (!source.MoveItemToVehicleContainers(vehicle, lst))
                         allMoved = false;
                 }
-            }
             return allMoved;
         }
 
@@ -490,6 +524,7 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
                 Console.WriteLine($"3. Display storages details ");
                 Console.WriteLine($"4. Add products to storage");
                 Console.WriteLine($"5. Display products in storage");
+                Console.WriteLine($"6. Package Products in storage");
                 Console.WriteLine("\n0. Exit");
                 Dash();
                 Console.Write("Enter choice: ");
@@ -514,6 +549,9 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
                         break;
                     case 5:
                         DisplayProductsInStorage();
+                        break;
+                    case 6:
+                        PackageProductsInStorage();
                         break;
                     case 0:
                         finish = true;
@@ -884,6 +922,7 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
 
         private static void DisplayProductsInStorage(StorageStructure storage)
         {
+            PrintHeader($"Display Products in {storage.Name}");
             if(storage.Items==null || storage.Items.Count == 0)
             {
                 FColorChange("red");
@@ -930,6 +969,63 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
             Console.WriteLine($"{"------",-20}{"------",-20}{"-----",-10}{"-------",-10}{"--------",-10}{"--------",-10}{"--------",-10}{"---------",-10}{"----------",-10}");
             FColorChange("white");
             
+        }
+
+        private static void PackageProductsInStorage(StorageStructure storage)
+        {
+            foreach (List<IPortable> lst in storage.Items)
+                foreach (IPortable item in lst)
+                    item.PackageItem();
+        }
+        private static void PackageProductsInStorage()
+        {
+            PrintHeader("Package Products in Storage");
+            if (warehouses.Count == 0)
+            {
+                FColorChange("red");
+                Console.WriteLine("\n\nNo ports or warehouses found in system!");
+                FColorChange("white");
+                Console.ReadKey();
+                return;
+            }
+
+            FColorChange("yellow");
+            Console.WriteLine("Choose Storage To Package Products In:");
+            Console.WriteLine("-------------------------------------");
+            FColorChange("white");
+            int num = 0;
+            foreach (StorageStructure storage in warehouses)
+            {
+                num++;
+                Console.Write($"{num}) {storage.Name} (Type: ");
+                FColorChange("green");
+                Console.Write($"{storage.GetType().Name}");
+                FColorChange("white");
+                Console.WriteLine(")");
+            }
+            Console.WriteLine("\n0) Back");
+            Dash();
+            bool finish = false;
+            while (!finish)
+            {
+                Console.Write("Enter choise: ");
+                int choice = Console.ReadKey().KeyChar;
+                choice = choice - 48;
+                if (choice == 0)
+                    finish = true;
+                else
+                    if (!(choice < 0 || choice > num))
+                {
+                    foreach (List<IPortable> lst in warehouses[choice - 1].Items)
+                        foreach (IPortable item in lst)
+                            item.PackageItem();
+                    FColorChange("green");
+                    Console.Write($"\n\nAll Products in {warehouses[choice-1].Name} were packaged successfully...");
+                    FColorChange("white");
+                    Console.ReadKey();
+                    finish = true;
+                }
+            }
         }
 
 
@@ -1119,7 +1215,8 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
         }
 
         private static void PrintItemsInVehicle(CargoVehicle vehicle)
-        {
+        {            
+            PrintHeader($"Display Products in {vehicle.Type}");
             if (vehicle is MultiUnitVehicle multiUnitVehicle)
             {
                 if (multiUnitVehicle.NumOfUnits == 0)
@@ -1130,13 +1227,24 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
                     Console.ReadKey();
                     return;
                 }
+                double totalWeight = 0, totalVolume = 0;
+                PrintProductDetailsHeader();
                 foreach (GeneralContainer unit in multiUnitVehicle.Units)
-                {
                     foreach (IPortable item in unit.Items)
                     {
-                        Console.WriteLine($"Item: {item.Name}");
+                        PrintProductDetails(item);
+                        totalWeight += item.GetWeight();
+                        totalVolume += item.GetVolume();
                     }
-                }
+                Console.Write($"\nTotal Prodcts weight: ");
+                FColorChange("green");
+                Console.WriteLine($"{totalWeight} Kg");
+                FColorChange("white");
+                Console.Write($"Total Prodcts volume: ");
+                FColorChange("green");
+                Console.WriteLine($"{totalVolume} Cube");
+                FColorChange("white");
+
             }
             else
             {
@@ -1148,10 +1256,24 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
                     Console.ReadKey();
                     return;
                 }
+                double totalWeight = 0, totalVolume = 0;
+                PrintProductDetailsHeader();
                 foreach (IPortable item in vehicle.Items)
                 {
-                    Console.WriteLine($"Item: {item.Name}");
+                    PrintProductDetails(item);
+                    totalWeight += item.GetWeight();
+                    totalVolume += item.GetVolume();
                 }
+                Console.Write($"\nTotal Prodcts weight: ");
+                FColorChange("green");
+                Console.WriteLine($"{totalWeight} Kg");
+                FColorChange("white");
+                Console.Write($"Total Prodcts volume: ");
+                FColorChange("green");
+                Console.WriteLine($"{totalVolume} Cube");
+                FColorChange("white");
+
+
             }
             Console.ReadKey();
         }
@@ -1463,7 +1585,7 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
 
         private static void PrintHeader(string header)
         {
-            Console.Clear();
+            Screen.Clean();
             string dash = new string('-', 50);
             Console.WriteLine(dash); ;
             string constant = "Transportation - Cargo App";

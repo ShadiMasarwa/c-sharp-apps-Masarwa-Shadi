@@ -23,6 +23,7 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
                 Console.WriteLine("-------------------------------\n");
                 Console.WriteLine("1. Run Tests");
                 Console.WriteLine("2. Run Console App");
+                Console.WriteLine("3. Run Console App With Demo Data");
                 Console.WriteLine("\n0. Exit\n");
                 Console.WriteLine("-------------------------------");
                 Console.Write("Enter Choice: ");
@@ -35,7 +36,10 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp
                         TestApp.RunTests();
                         break;
                     case 2:
-                        ConsoleApp.RunApp();
+                        ConsoleApp.RunApp(false);
+                        break;
+                    case 3:
+                        ConsoleApp.RunApp(true);
                         break;
                     case 0:
                         finish = true;

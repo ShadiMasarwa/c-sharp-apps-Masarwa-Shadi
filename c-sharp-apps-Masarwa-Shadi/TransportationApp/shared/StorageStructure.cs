@@ -274,14 +274,20 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp.shared
             {
                 return MoveItemToVehicleContainers(vehicle, itemsToMove);
             }
+
+            List<IPortable> itemsCopy = new List<IPortable>(itemsToMove);
             int itemsMoved = 0;
-            foreach(IPortable item in itemsToMove)
+            int numOfItems = itemsCopy.Count;
+
+            foreach (IPortable item in itemsCopy)
             {
-                if(MoveItemToVehicle(vehicle, item))
+                if (MoveItemToVehicle(vehicle, item))
+                {
                     itemsMoved++;
+                }
             }
             Message = $"{itemsMoved} items moved from {name} to {vehicle.Type}";
-            if (itemsMoved != itemsToMove.Count())
+            if (itemsMoved != numOfItems)
                 return false;
             return true;
         }

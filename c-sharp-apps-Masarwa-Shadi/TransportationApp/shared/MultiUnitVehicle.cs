@@ -142,13 +142,14 @@ namespace c_sharp_apps_Masarwa_Shadi.TransportationApp.shared
             return initialNumOfItems == loadedItemsToTarget;
         }
 
-        private int NumOfItemsInUnits()
+        public override int NumOfItemsInUnits()
         {
             int count = 0;
             if (Units == null) return 0;
             foreach (GeneralContainer container in Units)
-                foreach (IPortable item in container.Items)
-                    count++;
+                if(container.Items!=null)
+                    foreach (IPortable item in container.Items)
+                        count++;
 
             return count;
         }
