@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -51,20 +51,16 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="shared\ProcessManager.cs" />
-    <Compile Include="SportApp\BasketBallPlayer.cs" />
     <Compile Include="SportApp\Game.cs" />
-    <Compile Include="SportApp\GeneralPlayer.cs" />
     <Compile Include="SportApp\League.cs" />
     <Compile Include="SportApp\Round.cs" />
     <Compile Include="SportApp\Screen.cs" />
     <Compile Include="SportApp\Season.cs" />
-    <Compile Include="SportApp\SoccerPlayer.cs" />
     <Compile Include="SportApp\SportAppMain.cs" />
     <Compile Include="SportApp\Team.cs" />
     <Compile Include="SportApp\TestSportApp.cs" />
     <Compile Include="StockDemo\ExchangeDemo.cs" />
     <Compile Include="StockDemo\Stock.cs" />
-
     <Compile Include="TransportationApp\Airplane.cs" />
     <Compile Include="TransportationApp\ConsoleApp.cs" />
     <Compile Include="TransportationApp\Driver.cs" />
@@ -85,14 +81,6 @@
     <Compile Include="TransportationApp\ShippingPriceCalculator.cs" />
     <Compile Include="TransportationApp\TestApp.cs" />
     <Compile Include="TransportationApp\Train.cs" />
-
-    <Compile Include="TransportationApp\Buss.cs" />
-    <Compile Include="TransportationApp\Crone.cs" />
-    <Compile Include="TransportationApp\MonitorTransportation.cs" />
-    <Compile Include="TransportationApp\PassengersAirplain.cs" />
-    <Compile Include="TransportationApp\PassengersTrain.cs" />
-    <Compile Include="TransportationApp\PublicVehicle.cs" />
-
     <Compile Include="TransportationApp\TransportationAppMain.cs" />
     <Compile Include="TransportationApp\Warehouse.cs" />
   </ItemGroup>
