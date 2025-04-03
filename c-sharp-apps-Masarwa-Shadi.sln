@@ -5,6 +5,8 @@ VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "c-sharp-apps-Masarwa-Shadi", "c-sharp-apps-Masarwa-Shadi\c-sharp-apps-Masarwa-Shadi.csproj", "{A246EE42-E030-4CAD-9D72-C1ED0064D4F4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{FDA21065-25C8-47AD-8A2C-DD77294494C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A246EE42-E030-4CAD-9D72-C1ED0064D4F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A246EE42-E030-4CAD-9D72-C1ED0064D4F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A246EE42-E030-4CAD-9D72-C1ED0064D4F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDA21065-25C8-47AD-8A2C-DD77294494C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDA21065-25C8-47AD-8A2C-DD77294494C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDA21065-25C8-47AD-8A2C-DD77294494C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDA21065-25C8-47AD-8A2C-DD77294494C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

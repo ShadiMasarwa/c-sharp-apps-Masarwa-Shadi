@@ -5,6 +5,7 @@ using c_sharp_apps_Masarwa_Shadi.SportApp;
 using c_sharp_apps_Masarwa_Shadi.DraftApp;
 using c_sharp_apps_Masarwa_Shadi.BankApp;
 using c_sharp_apps_Masarwa_Shadi.StockDemo;
+using c_sharp_apps_Masarwa_Shadi.PokerGame.game_area;
 
 namespace c_sharp_apps_Masarwa_Shadi.shared
 {
@@ -25,6 +26,8 @@ namespace c_sharp_apps_Masarwa_Shadi.shared
                 Console.WriteLine("3. Transportation App");
                 Console.WriteLine("4. Draft App");
                 Console.WriteLine("5. Stock App");
+                Console.WriteLine("6. Poker Game");
+                Console.WriteLine();
                 Console.WriteLine("0. Exit");
                 Console.WriteLine("=====================");
                 Console.Write("Enter Choice: ");
@@ -48,6 +51,9 @@ namespace c_sharp_apps_Masarwa_Shadi.shared
                     case 5:
                         ExchangeDemo exchangeDemo = new ExchangeDemo();
                         exchangeDemo.MainEntry();
+                        break;
+                    case 6:
+                        PokerAppMain.MainEntry();
                         break;
                     case 0:
                         finish = true;

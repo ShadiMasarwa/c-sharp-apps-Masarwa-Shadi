@@ -16,8 +16,7 @@ namespace c_sharp_apps_Masarwa_Shadi.BankApp
             this.firstName = firstName;
             this.lastName = lastName;
         }
-
-
+        
         public string GetFirstName()
         {
             return firstName;
@@ -26,6 +25,15 @@ namespace c_sharp_apps_Masarwa_Shadi.BankApp
         public string GetLastName()
         {
             return lastName;
+        }
+
+        public void SetFirstName(string fname)
+        {
+            firstName = fname;
+        }
+        public void SetLastName(string lname)
+        {
+            lastName = lname;
         }
     }
 }

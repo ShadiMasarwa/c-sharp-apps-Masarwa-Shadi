@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace c_sharp_apps_Masarwa_Shadi.BankApp
 {
@@ -16,8 +12,26 @@ namespace c_sharp_apps_Masarwa_Shadi.BankApp
         public Account(Owner owner, double balance, int overdraft)
         {
             this.owner = owner;
+            if (balance < 0)
+            {
+                balance = 0;
+                Console.WriteLine("Balance can't be negative on creation!");
+            }
             this.balance = balance;
-            this.overdraft = overdraft;
+            if (overdraft < 0)
+            {
+                this.overdraft = 0;
+                Console.WriteLine("Balance can't be negative!");
+            }
+            else if (overdraft > MAX_OVERDRAFT)
+            {
+                Console.WriteLine("Max Overdraft allowed is - " + MAX_OVERDRAFT);
+                this.overdraft = MAX_OVERDRAFT;
+            }
+            else
+                this.overdraft = overdraft;
+
+
         }
 
         public Owner GetOwner()
@@ -37,9 +51,13 @@ namespace c_sharp_apps_Masarwa_Shadi.BankApp
 
         public void SetOverdraft(int overdraft)
         {
-            if(overdraft > MAX_OVERDRAFT)
+            if (overdraft > MAX_OVERDRAFT)
             {
                 Console.WriteLine("Max Overdraft allowed is - " + MAX_OVERDRAFT);
+            }
+            else if (overdraft < 0)
+            {
+                Console.WriteLine("Overdraft can't be negative!");
             }
             else
             {
@@ -52,7 +70,7 @@ namespace c_sharp_apps_Masarwa_Shadi.BankApp
             balance += amount;
         }
 
-        public void Withdraw( double amount)
+        public void Withdraw(double amount)
         {
             if ((balance - amount) < overdraft * -1)
             {
